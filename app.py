@@ -185,7 +185,7 @@ name, authentication_status = authenticator.login('Login', 'main')
 
 if authentication_status:
     st.success(f"Bem-vindo, {name}!")
-    # ...restante do seu app...
+    # ...restante do app...
 else:
     st.warning("Por favor, faça login com sua conta Google.")
     st.stop()
