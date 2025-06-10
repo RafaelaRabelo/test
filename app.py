@@ -27,6 +27,28 @@ st.set_page_config(
     layout="wide"
 )
 
+# --- AUTENTICAÇÃO GOOGLE (coloque aqui, logo após set_page_config) ---
+client_id = os.environ.get("GOOGLE_CLIENT_ID")
+client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
+redirect_uri = os.environ.get("GOOGLE_REDIRECT_URI")
+cookie_key = os.environ.get("COOKIE_KEY")
+
+authenticator = stauth.Authenticate_OAuth(
+    provider='google',
+    client_id=client_id,
+    client_secret=client_secret,
+    redirect_uri=redirect_uri,
+    cookie_name='streamlit_auth',
+    key=cookie_key
+)
+
+name, authentication_status = authenticator.login('Login', 'main')
+
+if not authentication_status:
+    st.warning("Por favor, faça login com sua conta Google.")
+    st.stop()
+# --- FIM DA AUTENTICAÇÃO ---
+
 # 🎨 CSS Customizado para estética
 st.markdown(
     """
@@ -165,27 +187,3 @@ st.markdown(
     "<center><small>Developed by UpStart 13 • 2025 🚀</small></center>",
     unsafe_allow_html=True
 )
-
-# Substitua pelos seus dados do Google
-client_id = os.environ.get("GOOGLE_CLIENT_ID")
-client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
-redirect_uri = os.environ.get("GOOGLE_REDIRECT_URI")
-cookie_key = os.environ.get("COOKIE_KEY")
-
-authenticator = stauth.Authenticate_OAuth(
-    provider='google',
-    client_id=client_id,
-    client_secret=client_secret,
-    redirect_uri=redirect_uri,
-    cookie_name='streamlit_auth',
-    key=cookie_key
-)
-
-name, authentication_status = authenticator.login('Login', 'main')
-
-if authentication_status:
-    st.success(f"Bem-vindo, {name}!")
-    # ...restante do app...
-else:
-    st.warning("Por favor, faça login com sua conta Google.")
-    st.stop()
