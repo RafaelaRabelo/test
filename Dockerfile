@@ -2,6 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# ✅ Instalar o git para permitir instalação via `git+https://`
+RUN apt-get update && apt-get install -y git && apt-get clean
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
