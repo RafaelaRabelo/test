@@ -1,30 +1,10 @@
-
+import os
 import streamlit as st
 from streamlit_option_menu import option_menu
 import base64
-
-
-# 🛡️ Função de autenticação simples
-def login():
-    st.markdown("## 🔐 Login")
-    st.markdown("---")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
-        if username == "admin" and password == "1234":  # 🔐 Troque por seus dados
-            st.session_state["authenticated"] = True
-            st.success("✅ Login successful")
-        else:
-            st.error("❌ Invalid username or password")
-
-# 🚪 Verificar se o usuário já está autenticado
-if "authenticated" not in st.session_state:
-    st.session_state["authenticated"] = False
-
-if not st.session_state["authenticated"]:
-    login()
-    st.stop()  # 🔒 Interrompe o código até fazer login
-
+import streamlit_authenticator as stauth
+from dotenv import load_dotenv
+load_dotenv()
 
 # 🎨 Função para converter imagem para base64
 def get_base64_of_bin_file(bin_file):
@@ -184,3 +164,27 @@ st.markdown(
     "<center><small>Developed by UpStart 13 • 2025 🚀</small></center>",
     unsafe_allow_html=True
 )
+
+# Substitua pelos seus dados do Google
+client_id = os.environ.get("GOOGLE_CLIENT_ID")
+client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
+redirect_uri = os.environ.get("GOOGLE_REDIRECT_URI")
+cookie_key = os.environ.get("COOKIE_KEY")
+
+authenticator = stauth.Authenticate_OAuth(
+    provider='google',
+    client_id=client_id,
+    client_secret=client_secret,
+    redirect_uri=redirect_uri,
+    cookie_name='streamlit_auth',
+    key=cookie_key
+)
+
+name, authentication_status = authenticator.login('Login', 'main')
+
+if authentication_status:
+    st.success(f"Bem-vindo, {name}!")
+    # ...restante do seu app...
+else:
+    st.warning("Por favor, faça login com sua conta Google.")
+    st.stop()

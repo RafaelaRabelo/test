@@ -1,6 +1,4 @@
 streamlit
-pandas
-numpy
-matplotlib
-scikit-learn
 streamlit-option-menu
+streamlit-authenticator
+python-dotenv
