@@ -7,26 +7,6 @@ import streamlit_authenticator as stauth
 
 load_dotenv()  # Carrega variáveis do .env localmente
 
-# 🎨 Função para converter imagem para base64
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-def get_image_as_base64(file):
-    file_ = get_base64_of_bin_file(file)
-    return f"data:image/png;base64,{file_}"
-
-# 🔗 Carregar o logo local em base64
-image_base64 = get_image_as_base64("gladney.png")
-
-# 🎨 Configuração da página
-st.set_page_config(
-    page_title="Dashboard - Gladney",
-    page_icon="📊",
-    layout="wide"
-)
-
 # --- AUTENTICAÇÃO GOOGLE (coloque aqui, logo após set_page_config) ---
 client_id = os.environ.get("GOOGLE_CLIENT_ID")
 client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
@@ -48,6 +28,27 @@ if not authentication_status:
     st.warning("Por favor, faça login com sua conta Google.")
     st.stop()
 # --- FIM DA AUTENTICAÇÃO ---
+
+# 🎨 Função para converter imagem para base64
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def get_image_as_base64(file):
+    file_ = get_base64_of_bin_file(file)
+    return f"data:image/png;base64,{file_}"
+
+# 🔗 Carregar o logo local em base64
+image_base64 = get_image_as_base64("gladney.png")
+
+# 🎨 Configuração da página
+st.set_page_config(
+    page_title="Dashboard - Gladney",
+    page_icon="📊",
+    layout="wide"
+)
+
 
 # 🎨 CSS Customizado para estética
 st.markdown(
