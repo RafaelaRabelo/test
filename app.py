@@ -1,10 +1,11 @@
 import os
+from dotenv import load_dotenv
 import streamlit as st
 from streamlit_option_menu import option_menu
 import base64
 import streamlit_authenticator as stauth
-from dotenv import load_dotenv
-load_dotenv()
+
+load_dotenv()  # Carrega variáveis do .env localmente
 
 # 🎨 Função para converter imagem para base64
 def get_base64_of_bin_file(bin_file):

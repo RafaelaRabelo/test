@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Streamlit
+.streamlit/
+
+# Ambiente virtual
+venv/
+.env/
+env/
+.venv/
+
+# Variáveis de ambiente e secrets
+.env
+
+# Arquivos de log
+*.log
+
+# Outros arquivos do sistema
+.DS_Store
+Thumbs.db
