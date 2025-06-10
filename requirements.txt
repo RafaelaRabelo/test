@@ -1,4 +1,4 @@
 streamlit
-streamlit-oauth
+git+https://github.com/ai-yash/st-oauth.git
 streamlit-option-menu
 python-dotenv
