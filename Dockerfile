@@ -2,11 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# ✅ Instalar git para permitir instalar pacotes via git+https
 RUN apt-get update && apt-get install -y git && apt-get clean
-
-# Clonar manualmente a lib pública
-RUN git clone https://github.com/ai-yash/st-oauth.git /st-oauth
-RUN pip install /st-oauth
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
