@@ -3,28 +3,26 @@ from dotenv import load_dotenv
 import streamlit as st
 from streamlit_option_menu import option_menu
 import base64
-import streamlit_authenticator as stauth
+from st_oauth import OAuth2Component
 
 load_dotenv()  # Carrega variáveis do .env localmente
 
-# --- AUTENTICAÇÃO GOOGLE (coloque aqui, logo após set_page_config) ---
 client_id = os.environ.get("GOOGLE_CLIENT_ID")
 client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
 redirect_uri = os.environ.get("GOOGLE_REDIRECT_URI")
-cookie_key = os.environ.get("COOKIE_KEY")
 
-authenticator = stauth.Authenticate_OAuth(
-    provider='google',
+oauth2 = OAuth2Component(
     client_id=client_id,
     client_secret=client_secret,
+    authorize_endpoint="https://accounts.google.com/o/oauth2/v2/auth",
+    token_endpoint="https://oauth2.googleapis.com/token",
     redirect_uri=redirect_uri,
-    cookie_name='streamlit_auth',
-    key=cookie_key
+    scope="openid email profile"
 )
 
-name, authentication_status = authenticator.login('Login', 'main')
+result = oauth2.authorize_button("Login com Google", "login")
 
-if not authentication_status:
+if not result or "token" not in result:
     st.warning("Por favor, faça login com sua conta Google.")
     st.stop()
 # --- FIM DA AUTENTICAÇÃO ---
