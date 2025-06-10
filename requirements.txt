@@ -1,1 +1,7 @@
 streamlit-oauth
+dotenv
+streamlit_option_menu
+streamlit
+base64
+os
+st_oauth
